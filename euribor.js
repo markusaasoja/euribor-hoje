@@ -16,14 +16,13 @@
 .lfc-eur-sub{ font-size:18px; line-height:1.6; color:#3A4454; margin:16px 0 0; max-width:680px; letter-spacing:-0.1px; }
 .lfc-eur-refline{ margin:16px 0 0; font-size:14px; line-height:1.55; color:#4F5969; font-weight:500; max-width:820px; }
 .lfc-eur-refline strong{ color:#202432; }
-.lfc-eur-clock{ vertical-align:-2px; margin-right:6px; }
 
 /* Cards */
 .lfc-eur-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:28px; }
 .lfc-eur-card{ background:#fff; border:1px solid #E9ECF1; border-radius:12px; padding:22px 18px; box-shadow:0 1px 3px rgba(18,23,33,0.06); min-width:0; }
-.lfc-eur-card-top{ display:flex; align-items:center; justify-content:space-between; }
-.lfc-eur-card-label{ font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
-.lfc-eur-card-bar{ width:34px; height:5px; border-radius:999px; }
+.lfc-eur-card-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.lfc-eur-card-label{ font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; white-space:nowrap; }
+.lfc-eur-card-bar{ width:17px; height:5px; border-radius:999px; flex:none; }
 .lfc-eur-card-valrow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:16px; flex-wrap:wrap; }
 .lfc-eur-card-val{ font-size:30px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; line-height:1; }
 .lfc-eur-card-delta{ display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:600; padding:4px 10px; border-radius:999px; font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto; }
@@ -118,7 +117,7 @@
 
   var HTML = `<!-- ======================= CARDS DE DESTAQUE ======================= -->
   <div class="lfc-eur-cards" id="lfc-eur-cards"></div>
-  <p class="lfc-eur-refline"><svg class="lfc-eur-clock" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#98A2B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Valores de referência de <strong id="lfc-eur-refdate">-</strong> · fonte EMMI, disponíveis gratuitamente com 24h de desfasamento</p>
+  <p class="lfc-eur-refline">Valores de referência de <strong id="lfc-eur-refdate">-</strong> · fonte EMMI, disponíveis gratuitamente com 24h de desfasamento</p>
   <p class="lfc-eur-note">A variação face ao dia útil anterior está em pontos percentuais (p.p.). Uma subida da Euribor encarece a prestação; uma descida alivia-a. As taxas a 1 semana e 1 mês existem, mas não são usadas no crédito à habitação em Portugal, por isso ficam de fora.</p>
 
   <!-- ======================= TABELA ======================= -->
