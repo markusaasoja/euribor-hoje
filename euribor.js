@@ -1,7 +1,6 @@
 /* =====================================================================
    LiteraciaFinanceira.pt - Ferramenta "Euribor hoje" (bundle externo)
    Injeta CSS + HTML no #lfc-eur e vai buscar os dados a euribor-data.json.
-   Editar este ficheiro no GitHub atualiza a pagina (via jsDelivr).
    ===================================================================== */
 (function(){
   "use strict";
@@ -20,13 +19,13 @@
 .lfc-eur-clock{ vertical-align:-2px; margin-right:6px; }
 
 /* Cards */
-.lfc-eur-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:28px; }
-.lfc-eur-card{ background:#fff; border:1px solid #E9ECF1; border-radius:12px; padding:24px 22px; box-shadow:0 1px 3px rgba(18,23,33,0.06); }
+.lfc-eur-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:28px; }
+.lfc-eur-card{ background:#fff; border:1px solid #E9ECF1; border-radius:12px; padding:22px 18px; box-shadow:0 1px 3px rgba(18,23,33,0.06); min-width:0; }
 .lfc-eur-card-top{ display:flex; align-items:center; justify-content:space-between; }
 .lfc-eur-card-label{ font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-card-bar{ width:34px; height:5px; border-radius:999px; }
 .lfc-eur-card-valrow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:16px; flex-wrap:wrap; }
-.lfc-eur-card-val{ font-size:34px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; line-height:1; }
+.lfc-eur-card-val{ font-size:30px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; line-height:1; }
 .lfc-eur-card-delta{ display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:600; padding:4px 10px; border-radius:999px; font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto; }
 .lfc-eur-card-foot{ margin-top:18px; border-top:1px solid #F2F4F7; padding-top:14px; display:flex; flex-direction:column; gap:9px; }
 .lfc-eur-card-line{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; font-size:13px; }
@@ -113,7 +112,7 @@
   .lfc-eur-table th.lfc-eur-th-right, .lfc-eur-table td.lfc-eur-td-last{ padding-right:16px; }
 }
 @media (max-width:479px){
-  .lfc-eur-card-val{ font-size:30px; }
+  .lfc-eur-card-val{ font-size:28px; }
   .lfc-eur-sim-two{ grid-template-columns:1fr; }
 }`;
 
@@ -288,7 +287,6 @@
         + deltaChip(today-yst)+'</div>'
         + '<div class="lfc-eur-card-foot">'
         + '<div class="lfc-eur-card-line"><span class="k">Dia útil anterior</span><span class="v">'+fmtPct(yst)+'</span></div>'
-        + '<div class="lfc-eur-card-line"><span class="k">Há um mês</span><span class="v">'+fmtPct(mth)+' '+mDelta(today-mth)+'</span></div>'
         + '</div></div>';
     });
     wrap.innerHTML=html;
