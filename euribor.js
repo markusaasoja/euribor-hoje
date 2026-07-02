@@ -20,7 +20,7 @@
 /* Cards */
 .lfc-eur-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:28px; }
 .lfc-eur-card{ background:#fff; border:1px solid #E9ECF1; border-radius:12px; padding:22px 18px; box-shadow:0 1px 3px rgba(18,23,33,0.06); min-width:0; }
-.lfc-eur-card-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.lfc-eur-card-top{ display:flex; align-items:center; gap:8px; }
 .lfc-eur-card-label{ font-weight:700; font-size:13px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; white-space:nowrap; }
 .lfc-eur-card-bar{ width:17px; height:5px; border-radius:999px; flex:none; }
 .lfc-eur-card-valrow{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:16px; flex-wrap:wrap; }
