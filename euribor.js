@@ -40,6 +40,13 @@
 .lfc-eur-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
 .lfc-eur-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.15; letter-spacing:-0.02em; color:#202432; margin:6px 0 0; }
 
+/* Media mensal */
+.lfc-eur-mm-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.lfc-eur-mm-card{ background:#FCFCFD; border:1px solid #E9ECF1; border-radius:12px; padding:18px 18px; min-width:0; }
+.lfc-eur-mm-card .lbl{ font-weight:700; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
+.lfc-eur-mm-card .val{ font-size:26px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; margin-top:6px; line-height:1; }
+.lfc-eur-mm-card .tag{ display:inline-block; margin-top:10px; font-size:11px; font-weight:600; color:#C72307; background:#FFF4ED; border:1px solid #FFE7D4; border-radius:999px; padding:3px 9px; }
+
 /* Tabela */
 .lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow:hidden; }
 .lfc-eur-table{ width:100%; border-collapse:collapse; font-size:14px; }
@@ -135,7 +142,32 @@
       <div class="lfc-eur-legend" id="lfc-eur-legend"></div>
       <div class="lfc-eur-canvas-wrap"><canvas id="lfc-eur-canvas"></canvas></div>
     </div>
-    <p class="lfc-eur-note">Passa o rato sobre o gráfico para ver os valores em cada data. Os valores diários recentes são oficiais (EMMI, com 24h de desfasamento); a série histórica longa é indicativa (médias mensais). Fonte: Euribor (EMMI) / Banco Central Europeu.</p>
+    <p class="lfc-eur-note">Passa o rato sobre o gráfico para ver os valores em cada data. O "Diário" mostra os valores oficiais recentes (EMMI, com 24h de desfasamento); o "1 ano" mostra as médias mensais do Banco de Portugal.</p>
+  </div>
+
+  <!-- ======================= MEDIA MENSAL ======================= -->
+  <div class="lfc-eur-block">
+    <div class="lfc-eur-block-head">
+      <div>
+        <span class="lfc-eur-eyebrow">O que conta na revisão</span>
+        <h2 class="lfc-eur-h2">Média mensal da Euribor</h2>
+      </div>
+    </div>
+    <p class="lfc-eur-note" style="margin:0 0 20px">É a média mensal - e não o valor de um único dia - que o teu banco usa para rever a prestação. Regra geral aplica-se a média do mês anterior ao da revisão. Médias mensais fechadas: fonte Banco de Portugal.</p>
+    <div class="lfc-eur-mm-cards" id="lfc-eur-mm-current"></div>
+    <div class="lfc-eur-table-wrap" style="margin-top:20px">
+      <table class="lfc-eur-table">
+        <thead>
+          <tr>
+            <th class="lfc-eur-th-left">Mês</th>
+            <th>3 meses</th>
+            <th>6 meses</th>
+            <th class="lfc-eur-th-right">12 meses</th>
+          </tr>
+        </thead>
+        <tbody id="lfc-eur-mm-tbody"></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- ======================= TABELA ======================= -->
@@ -214,6 +246,7 @@
     { key:'m6',  label:'6 meses',  color:'#F79009' },
     { key:'m12', label:'12 meses', color:'#9B8AFB' }
   ];
+  var MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 
   /* ---------------- Helpers pt-PT ---------------- */
   function fmtPct(v){ if(v==null||!isFinite(v)) return '-'; return v.toFixed(3).replace('.',',')+'%'; }
@@ -425,6 +458,30 @@
     });
   }
   runSim();
+
+  /* ---------------- Media mensal ---------------- */
+  (function renderMediaMensal(){
+    var ymLast = last.d.split('/')[2]+'-'+last.d.split('/')[1];
+    var monthDays = serie.filter(function(r){ var p=r.d.split('/'); return (p[2]+'-'+p[1])===ymLast; });
+    function avg(key){ if(!monthDays.length) return null; var s=0; monthDays.forEach(function(r){ s+=r[key]; }); return s/monthDays.length; }
+    var mesNome = MESES[parseInt(last.d.split('/')[1],10)-1];
+    var cur = document.getElementById('lfc-eur-mm-current');
+    if(cur){
+      cur.innerHTML = PRAZOS.map(function(p){
+        return '<div class="lfc-eur-mm-card"><span class="lbl">'+p.label+'</span>'
+          + '<div class="val">'+fmtPct(avg(p.key))+'</div>'
+          + '<span class="tag">Média de '+mesNome+' até à data ('+monthDays.length+' dia'+(monthDays.length!==1?'s':'')+')</span></div>';
+      }).join('');
+    }
+    var tb=document.getElementById('lfc-eur-mm-tbody');
+    if(tb){
+      var rows = LFC_EUR_HISTORICO.slice().reverse().slice(0,12);
+      tb.innerHTML = rows.map(function(hh){
+        var p=hh.d.split('-'); var nome=MESES[parseInt(p[1],10)-1]+' de '+p[0];
+        return '<tr><td class="lfc-eur-td-date">'+nome+'</td><td>'+fmtPct(hh.m3)+'</td><td>'+fmtPct(hh.m6)+'</td><td class="lfc-eur-td-last">'+fmtPct(hh.m12)+'</td></tr>';
+      }).join('');
+    }
+  })();
   }
 
   function boot(DATA){
