@@ -117,14 +117,33 @@
 
   var HTML = `<!-- ======================= CARDS DE DESTAQUE ======================= -->
   <div class="lfc-eur-cards" id="lfc-eur-cards"></div>
-  <p class="lfc-eur-refline">Valores de referência de <strong id="lfc-eur-refdate">-</strong> · fonte EMMI, disponíveis gratuitamente com 24h de desfasamento</p>
+  <p class="lfc-eur-refline">Atualizado automaticamente todos os dias úteis. Último valor disponível: <strong id="lfc-eur-refdate">-</strong> · a fonte gratuita (EMMI) tem 24h de desfasamento, por isso corresponde ao dia útil anterior.</p>
   <p class="lfc-eur-note">A variação face ao dia útil anterior está em pontos percentuais (p.p.). Uma subida da Euribor encarece a prestação; uma descida alivia-a. As taxas a 1 semana e 1 mês existem, mas não são usadas no crédito à habitação em Portugal, por isso ficam de fora.</p>
+
+  <!-- ======================= GRAFICO ======================= -->
+  <div class="lfc-eur-block">
+    <div class="lfc-eur-block-head">
+      <div>
+        <span class="lfc-eur-eyebrow">Gráfico</span>
+        <h2 class="lfc-eur-h2">Evolução das três Euribores</h2>
+      </div>
+      <div class="lfc-eur-ranges" id="lfc-eur-ranges">
+        <button data-range="30d">Diário</button>
+        <button data-range="1a" class="is-active">1 ano</button>
+      </div>
+    </div>
+    <div class="lfc-eur-chartcard">
+      <div class="lfc-eur-legend" id="lfc-eur-legend"></div>
+      <div class="lfc-eur-canvas-wrap"><canvas id="lfc-eur-canvas"></canvas></div>
+    </div>
+    <p class="lfc-eur-note">Passa o rato sobre o gráfico para ver os valores em cada data. Os valores diários recentes são oficiais (EMMI, com 24h de desfasamento); a série histórica longa é indicativa (médias mensais). Fonte: Euribor (EMMI) / Banco Central Europeu.</p>
+  </div>
 
   <!-- ======================= TABELA ======================= -->
   <div class="lfc-eur-block">
     <div class="lfc-eur-block-head">
       <div>
-        <span class="lfc-eur-eyebrow">Últimos 30 dias</span>
+        <span class="lfc-eur-eyebrow" id="lfc-eur-table-eyebrow">Últimos dias úteis</span>
         <h2 class="lfc-eur-h2">Evolução diária</h2>
       </div>
     </div>
@@ -142,25 +161,6 @@
       </table>
     </div>
     <a href="#" id="lfc-eur-more" class="lfc-eur-morebtn">Mostrar mais dias</a>
-  </div>
-
-  <!-- ======================= GRAFICO ======================= -->
-  <div class="lfc-eur-block">
-    <div class="lfc-eur-block-head">
-      <div>
-        <span class="lfc-eur-eyebrow">Gráfico</span>
-        <h2 class="lfc-eur-h2">Evolução das três Euribores</h2>
-      </div>
-      <div class="lfc-eur-ranges" id="lfc-eur-ranges">
-        <button data-range="30d" class="is-active">30 dias</button>
-        <button data-range="1a">1 ano</button>
-      </div>
-    </div>
-    <div class="lfc-eur-chartcard">
-      <div class="lfc-eur-legend" id="lfc-eur-legend"></div>
-      <div class="lfc-eur-canvas-wrap"><canvas id="lfc-eur-canvas"></canvas></div>
-    </div>
-    <p class="lfc-eur-note">Passa o rato sobre o gráfico para ver os valores em cada data. Os valores diários recentes são oficiais (EMMI, com 24h de desfasamento); a série histórica longa é indicativa (médias mensais). Fonte: Euribor (EMMI) / Banco Central Europeu.</p>
   </div>
 
   <!-- ======================= SIMULADOR ======================= -->
@@ -296,6 +296,7 @@
   (function renderTable(){
     var tb=document.getElementById('lfc-eur-tbody'); if(!tb) return;
     var rows = serie.slice().reverse().slice(0,30);
+    var eb=document.getElementById('lfc-eur-table-eyebrow'); if(eb) eb.textContent='Últimos '+rows.length+' dias úteis';
     var html='';
     rows.forEach(function(r,i){
       var extra = i>=INITIAL_ROWS ? ' data-extra="1"' : '';
@@ -327,7 +328,7 @@
     s.src='https://cdn.jsdelivr.net/npm/chart.js';
     s.onload=cb; document.head.appendChild(s);
   }
-  var chart=null, hidden={m3:false,m6:false,m12:false}, currentRange='30d';
+  var chart=null, hidden={m3:false,m6:false,m12:false}, currentRange='1a';
 
   function dataForRange(range){
     if(range==='30d'){
