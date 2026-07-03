@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: euribor-update
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -36,7 +36,8 @@ jobs:
             echo "Sem alteracoes."
           else
             git commit -m "Euribor: atualizacao automatica ($(date -u +%Y-%m-%d))"
-            git push
+            git pull --rebase origin main
+git push
           fi
 
       - name: Purge jsDelivr (para o site apanhar o novo JSON)
