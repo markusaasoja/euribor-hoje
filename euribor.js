@@ -68,20 +68,20 @@
 .lfc-eur-canvas-wrap{ position:relative; height:340px; }
 
 /* Simulador */
-.lfc-eur-sim{ margin-top:52px; background:#121721; border-radius:20px; padding:40px 40px; color:#fff; }
-.lfc-eur-sim-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FFA570; }
-.lfc-eur-sim-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.2; letter-spacing:-0.02em; color:#fff; margin:10px 0 6px; }
-.lfc-eur-sim-sub{ font-size:15px; line-height:1.6; color:rgba(255,255,255,0.6); margin:0 0 26px; max-width:620px; }
-.lfc-eur-sim-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:30px; align-items:start; }
-.lfc-eur-sim-inputs{ display:flex; flex-direction:column; gap:18px; }
+.lfc-eur-sim{ margin-top:52px; }
+.lfc-eur-sim-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
+.lfc-eur-sim-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.2; letter-spacing:-0.02em; color:#202432; margin:6px 0 6px; }
+.lfc-eur-sim-sub{ font-size:15px; line-height:1.6; color:#4F5969; margin:0 0 24px; max-width:620px; }
+.lfc-eur-sim-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:20px; align-items:stretch; }
+.lfc-eur-sim-inputs{ background:#fff; border:1px solid #E9ECF1; border-radius:16px; padding:26px 24px; box-shadow:0 1px 3px rgba(18,23,33,0.06); display:flex; flex-direction:column; gap:18px; }
 .lfc-eur-sim-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.lfc-eur-sim-field label{ display:block; font-size:13px; font-weight:600; color:rgba(255,255,255,0.7); margin-bottom:8px; }
-.lfc-eur-sim-field input{ width:100%; background:#1C222E; border:1px solid #2B3140; border-radius:12px; padding:13px 15px; color:#fff; font-size:16px; font-weight:600; outline:none; font-variant-numeric:tabular-nums; font-family:inherit; }
-.lfc-eur-sim-field input:focus{ border-color:#3A4454; }
+.lfc-eur-sim-field label{ display:block; font-size:13px; font-weight:600; color:#4F5969; margin-bottom:8px; }
+.lfc-eur-sim-field input{ width:100%; background:#fff; border:1px solid #D0D5DD; border-radius:12px; padding:13px 15px; color:#202432; font-size:16px; font-weight:600; outline:none; font-variant-numeric:tabular-nums; font-family:inherit; }
+.lfc-eur-sim-field input:focus{ border-color:var(--colors--accent-blue,#2E90FA); }
 .lfc-eur-sim-pills{ display:flex; gap:8px; }
-.lfc-eur-sim-pills button{ flex:1; background:#1C222E; border:1px solid #2B3140; color:rgba(255,255,255,0.75); font-family:inherit; font-size:14px; font-weight:600; padding:12px 8px; border-radius:12px; cursor:pointer; }
-.lfc-eur-sim-pills button.is-active{ background:rgba(255,90,31,0.16); border-color:#FF5A1F; color:#FFC9A8; }
-.lfc-eur-sim-result{ background:#1C222E; border:1px solid #2B3140; border-radius:18px; padding:24px 24px; display:flex; flex-direction:column; gap:16px; }
+.lfc-eur-sim-pills button{ flex:1; background:#F2F4F7; border:1px solid #EAECF0; color:#4F5969; font-family:inherit; font-size:14px; font-weight:600; padding:12px 8px; border-radius:12px; cursor:pointer; }
+.lfc-eur-sim-pills button.is-active{ background:#FFF4ED; border-color:#FF5A1F; color:#C72307; }
+.lfc-eur-sim-result{ background:#121721; border-radius:16px; padding:26px 24px; display:flex; flex-direction:column; gap:16px; color:#fff; }
 .lfc-eur-sim-row{ display:flex; align-items:center; justify-content:space-between; font-size:14px; }
 .lfc-eur-sim-row span:first-child{ color:rgba(255,255,255,0.6); }
 .lfc-eur-sim-row span:last-child{ font-weight:600; color:#fff; font-variant-numeric:tabular-nums; }
@@ -90,10 +90,10 @@
 .lfc-eur-sim-prest{ border-top:1px solid #2B3140; padding-top:16px; }
 .lfc-eur-sim-prest-label{ display:block; font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:4px; }
 .lfc-eur-sim-prest-val{ font-family:inherit; font-weight:700; font-size:40px; line-height:1; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
-.lfc-eur-sim-shock{ background:rgba(240,68,56,0.12); border:1px solid rgba(253,162,155,0.25); border-radius:12px; padding:12px 14px; font-size:13px; line-height:1.45; color:#FDA29B; }
+.lfc-eur-sim-shock{ background:rgba(240,68,56,0.14); border:1px solid rgba(253,162,155,0.25); border-radius:12px; padding:12px 14px; font-size:13px; line-height:1.45; color:#FDA29B; }
 .lfc-eur-sim-shock strong{ color:#fff; }
-.lfc-eur-sim-foot{ font-size:12px; line-height:1.55; color:rgba(255,255,255,0.5); margin:22px 0 0; }
-.lfc-eur-sim-link{ color:#FFC9A8; text-decoration:underline; }
+.lfc-eur-sim-foot{ font-size:12px; line-height:1.55; color:#98A2B3; margin:22px 0 0; }
+.lfc-eur-sim-link{ color:var(--colors--accent-blue,#2E90FA); text-decoration:underline; }
 
 
 /* ---------- Responsivo ---------- */
@@ -102,7 +102,6 @@
   .lfc-eur-sub{ font-size:16px; }
   .lfc-eur-cards{ grid-template-columns:1fr; gap:14px; }
   .lfc-eur-h2, .lfc-eur-sim-h2{ font-size:25px; }
-  .lfc-eur-sim{ padding:28px 22px; }
   .lfc-eur-sim-grid{ grid-template-columns:1fr; gap:22px; }
   .lfc-eur-sim-prest-val{ font-size:34px; }
   .lfc-eur-canvas-wrap{ height:280px; }
