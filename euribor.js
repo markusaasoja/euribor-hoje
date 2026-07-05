@@ -45,7 +45,7 @@
 .lfc-eur-mm-card{ background:#FCFCFD; border:1px solid #E9ECF1; border-radius:12px; padding:18px 18px; min-width:0; }
 .lfc-eur-mm-card .lbl{ font-weight:700; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-mm-card .val{ font-size:26px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; margin-top:6px; line-height:1; }
-.lfc-eur-mm-card .tag{ display:inline-block; margin-top:10px; font-size:11px; font-weight:600; color:#C72307; background:#FFF4ED; border:1px solid #FFE7D4; border-radius:999px; padding:3px 9px; }
+.lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#C72307; background:#FFF4ED; border:1px solid #FFE7D4; border-radius:999px; padding:5px 12px; line-height:1.4; }
 
 /* Tabela */
 .lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow:hidden; }
@@ -115,6 +115,10 @@
   .lfc-eur-table th, .lfc-eur-table td{ padding:11px 12px; }
   .lfc-eur-table th.lfc-eur-th-left, .lfc-eur-table td.lfc-eur-td-date{ padding-left:16px; }
   .lfc-eur-table th.lfc-eur-th-right, .lfc-eur-table td.lfc-eur-td-last{ padding-right:16px; }
+  .lfc-eur-mm-cards{ grid-template-columns:1fr; gap:10px; }
+  .lfc-eur-mm-card{ display:flex; align-items:baseline; justify-content:space-between; padding:14px 16px; }
+  .lfc-eur-mm-card .lbl{ font-size:13px; }
+  .lfc-eur-mm-card .val{ font-size:22px; margin-top:0; }
 }
 @media (max-width:479px){
   .lfc-eur-card-val{ font-size:28px; }
@@ -154,7 +158,7 @@
       </div>
     </div>
     <p class="lfc-eur-note" style="margin:0 0 20px">É a média mensal - e não o valor de um único dia - que o teu banco usa para rever a prestação. Regra geral aplica-se a média do mês anterior ao da revisão. Médias mensais fechadas: fonte Banco de Portugal.</p>
-    <div class="lfc-eur-mm-cards" id="lfc-eur-mm-current"></div>
+    <div id="lfc-eur-mm-current"></div>
     <div class="lfc-eur-table-wrap" style="margin-top:20px">
       <table class="lfc-eur-table">
         <thead>
@@ -467,11 +471,11 @@
     var mesNome = MESES[parseInt(last.d.split('/')[1],10)-1];
     var cur = document.getElementById('lfc-eur-mm-current');
     if(cur){
-      cur.innerHTML = PRAZOS.map(function(p){
-        return '<div class="lfc-eur-mm-card"><span class="lbl">'+p.label+'</span>'
-          + '<div class="val">'+fmtPct(avg(p.key))+'</div>'
-          + '<span class="tag">Média de '+mesNome+' até à data ('+monthDays.length+' dia'+(monthDays.length!==1?'s':'')+')</span></div>';
+      var mmCap = 'Média de '+mesNome+' até à data ('+monthDays.length+' dia'+(monthDays.length!==1?'s':'')+', ainda a fechar)';
+      var mmCards = PRAZOS.map(function(p){
+        return '<div class="lfc-eur-mm-card"><span class="lbl">'+p.label+'</span><div class="val">'+fmtPct(avg(p.key))+'</div></div>';
       }).join('');
+      cur.innerHTML = '<div class="lfc-eur-mm-cards">'+mmCards+'</div><p class="lfc-eur-mm-cap">'+mmCap+'</p>';
     }
     var tb=document.getElementById('lfc-eur-mm-tbody');
     if(tb){
