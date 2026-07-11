@@ -5,7 +5,7 @@
    ===================================================================== */
 (function(){
   "use strict";
-  var DATA_URL = "https://cdn.jsdelivr.net/gh/markusaasoja/euribor-hoje@main/euribor-data.json";
+  var DATA_URL = "https://cdn.jsdelivr.net/gh/<SINU-GITHUB-KASUTAJA>/<SINU-REPO>@main/euribor-data.json";
   var CSS = `/* ===================== LFC-EUR · stiilid (LF tokenid) ===================== */
 #lfc-eur{ font-family:inherit; color:#202432; -webkit-font-smoothing:antialiased; }
 #lfc-eur *{ box-sizing:border-box; }
@@ -32,14 +32,14 @@
 /* Üldised plokid */
 .lfc-eur-block{ margin-top:48px; }
 .lfc-eur-block-head{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:18px; }
-.lfc-eur-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
+.lfc-eur-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#0072CE; }
 .lfc-eur-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.15; letter-spacing:-0.02em; color:#202432; margin:6px 0 0; }
 /* Kuukeskmine */
 .lfc-eur-mm-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
 .lfc-eur-mm-card{ background:#FCFCFD; border:1px solid #E9ECF1; border-radius:12px; padding:18px 18px; min-width:0; }
 .lfc-eur-mm-card .lbl{ font-weight:700; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-mm-card .val{ font-size:26px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; margin-top:6px; line-height:1; }
-.lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#C72307; background:#FFF4ED; border:1px solid #FFE7D4; border-radius:999px; padding:5px 12px; line-height:1.4; }
+.lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#005AA3; background:#EBF4FC; border:1px solid #C9E2F6; border-radius:999px; padding:5px 12px; line-height:1.4; }
 /* Tabel */
 .lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow:hidden; }
 .lfc-eur-table{ width:100%; border-collapse:collapse; font-size:14px; }
@@ -50,7 +50,7 @@
 .lfc-eur-table td{ padding:12px 16px; text-align:right; font-variant-numeric:tabular-nums; color:#394455; border-bottom:1px solid #F2F4F7; }
 .lfc-eur-table td.lfc-eur-td-date{ text-align:left; padding-left:24px; white-space:nowrap; color:#394455; }
 .lfc-eur-table td.lfc-eur-td-last{ padding-right:24px; }
-.lfc-eur-table tr.is-today td{ background:#FFF9F5; font-weight:700; color:#202432; }
+.lfc-eur-table tr.is-today td{ background:#F4F9FE; font-weight:700; color:#202432; }
 .lfc-eur-table tr[data-extra]{ display:none; }
 .lfc-eur-table tr[data-extra].is-shown{ display:table-row; }
 .lfc-eur-morebtn{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:14px; font-weight:600; color:#4F5969; border:1px solid #D0D5DD; border-radius:10px; padding:9px 16px; }
@@ -67,7 +67,7 @@
 .lfc-eur-canvas-wrap{ position:relative; height:340px; }
 /* Simulaator */
 .lfc-eur-sim{ margin-top:52px; }
-.lfc-eur-sim-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
+.lfc-eur-sim-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#0072CE; }
 .lfc-eur-sim-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.2; letter-spacing:-0.02em; color:#202432; margin:6px 0 6px; }
 .lfc-eur-sim-sub{ font-size:15px; line-height:1.6; color:#4F5969; margin:0 0 24px; max-width:620px; }
 .lfc-eur-sim-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:20px; align-items:stretch; }
@@ -75,23 +75,23 @@
 .lfc-eur-sim-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .lfc-eur-sim-field label{ display:block; font-size:13px; font-weight:600; color:#4F5969; margin-bottom:8px; }
 .lfc-eur-sim-field input{ width:100%; background:#fff; border:1px solid #D0D5DD; border-radius:12px; padding:13px 15px; color:#202432; font-size:16px; font-weight:600; outline:none; font-variant-numeric:tabular-nums; font-family:inherit; }
-.lfc-eur-sim-field input:focus{ border-color:var(--colors--accent-blue,#2E90FA); }
+.lfc-eur-sim-field input:focus{ border-color:var(--colors--accent-blue,#0072CE); }
 .lfc-eur-sim-pills{ display:flex; gap:8px; }
 .lfc-eur-sim-pills button{ flex:1; background:#F2F4F7; border:1px solid #EAECF0; color:#4F5969; font-family:inherit; font-size:14px; font-weight:600; padding:12px 8px; border-radius:12px; cursor:pointer; }
-.lfc-eur-sim-pills button.is-active{ background:#FFF4ED; border-color:#FF5A1F; color:#C72307; }
+.lfc-eur-sim-pills button.is-active{ background:#EBF4FC; border-color:#0072CE; color:#005AA3; }
 .lfc-eur-sim-result{ background:#121721; border-radius:16px; padding:26px 24px; display:flex; flex-direction:column; gap:16px; color:#fff; }
 .lfc-eur-sim-row{ display:flex; align-items:center; justify-content:space-between; font-size:14px; }
 .lfc-eur-sim-row span:first-child{ color:rgba(255,255,255,0.6); }
 .lfc-eur-sim-row span:last-child{ font-weight:600; color:#fff; font-variant-numeric:tabular-nums; }
 .lfc-eur-sim-row--tan{ border-top:1px solid #2B3140; padding-top:14px; }
-.lfc-eur-sim-row--tan span:last-child{ color:#FFA570; font-weight:700; }
+.lfc-eur-sim-row--tan span:last-child{ color:#6EB9F0; font-weight:700; }
 .lfc-eur-sim-prest{ border-top:1px solid #2B3140; padding-top:16px; }
 .lfc-eur-sim-prest-label{ display:block; font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:4px; }
 .lfc-eur-sim-prest-val{ font-family:inherit; font-weight:700; font-size:40px; line-height:1; color:#fff; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; }
 .lfc-eur-sim-shock{ background:rgba(240,68,56,0.14); border:1px solid rgba(253,162,155,0.25); border-radius:12px; padding:12px 14px; font-size:13px; line-height:1.45; color:#FDA29B; }
 .lfc-eur-sim-shock strong{ color:#fff; }
 .lfc-eur-sim-foot{ font-size:12px; line-height:1.55; color:#98A2B3; margin:22px 0 0; }
-.lfc-eur-sim-link{ color:var(--colors--accent-blue,#2E90FA); text-decoration:underline; }
+.lfc-eur-sim-link{ color:var(--colors--accent-blue,#0072CE); text-decoration:underline; }
 /* ---------- Responsiivne ---------- */
 @media (max-width:767px){
   .lfc-eur-h1{ font-size:36px; }
@@ -229,8 +229,8 @@
     var LFC_EUR_DIARIO = { dataReferencia: DATA.dataReferencia, serie: DATA.serie };
     var LFC_EUR_HISTORICO = DATA.historico || [];
     var PRAZOS = [
-    { key:'m3',  label:'3 kuud',  color:'#2E90FA' },
-    { key:'m6',  label:'6 kuud',  color:'#F79009' },
+    { key:'m3',  label:'3 kuud',  color:'#7A8699' },
+    { key:'m6',  label:'6 kuud',  color:'#0072CE' },
     { key:'m12', label:'12 kuud', color:'#9B8AFB' }
   ];
   var MESES = ['jaanuar','veebruar','märts','aprill','mai','juuni','juuli','august','september','oktoober','november','detsember'];
@@ -364,8 +364,7 @@
   }
   function drawChart(){
     var d=dataForRange(currentRange);
-    var accent=(getComputedStyle(document.documentElement).getPropertyValue('--colors--accent-blue')||'').trim()||'#2E90FA';
-    PRAZOS[0].color=accent;
+    /* Joonte värvid on fikseeritud Rahatarkuse paletiga (6 kuud = brändisinine #0072CE) */
     var datasets=PRAZOS.filter(function(p){return !hidden[p.key];}).map(function(p){
       return { label:p.label, data:d.rows.map(function(r){return r[p.key];}), borderColor:p.color,
         backgroundColor:p.color, borderWidth:2, pointRadius:0, pointHoverRadius:4, tension:0.25, fill:false };
