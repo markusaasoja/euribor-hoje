@@ -1,11 +1,10 @@
 /* =====================================================================
    Rahatarkus - tööriist "Euribor täna" (väline bundle)
    Süstib CSS-i + HTML-i #lfc-eur sisse ja laeb andmed failist euribor-data.json.
-   NB: asenda DATA_URL oma GitHubi forgi teega.
    ===================================================================== */
 (function(){
   "use strict";
-  var DATA_URL = "https://cdn.jsdelivr.net/gh/<SINU-GITHUB-KASUTAJA>/<SINU-REPO>@main/euribor-data.json";
+  var DATA_URL = "https://cdn.jsdelivr.net/gh/markusaasoja/euribor-hoje@main/euribor-data.json";
   var CSS = `/* ===================== LFC-EUR · stiilid (LF tokenid) ===================== */
 #lfc-eur{ font-family:inherit; color:#202432; -webkit-font-smoothing:antialiased; }
 #lfc-eur *{ box-sizing:border-box; }
