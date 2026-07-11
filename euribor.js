@@ -47,15 +47,15 @@
 .lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#005AA3; background:#EBF4FC; border:1px solid #C9E2F6; border-radius:999px; padding:5px 12px; line-height:1.4; white-space:normal; max-width:100%; }
 /* Tabel */
 .lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
-.lfc-eur-table{ width:100%; min-width:440px; border-collapse:collapse; font-size:14px; table-layout:auto; }
+.lfc-eur-table{ width:100%; border-collapse:collapse; font-size:14px; table-layout:auto; }
 #lfc-eur .lfc-eur-table th, #lfc-eur .lfc-eur-table td{ overflow:visible; text-overflow:clip; }
 .lfc-eur-table thead tr{ background:#FCFCFD; border-bottom:1px solid #EAECF0; }
-.lfc-eur-table th{ text-align:right; padding:13px 16px; font-weight:600; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
-.lfc-eur-table th.lfc-eur-th-left{ text-align:left; padding-left:24px; }
-.lfc-eur-table th.lfc-eur-th-right{ padding-right:24px; }
-.lfc-eur-table td{ padding:12px 16px; text-align:right; font-variant-numeric:tabular-nums; color:#394455; border-bottom:1px solid #F2F4F7; }
-.lfc-eur-table td.lfc-eur-td-date{ text-align:left; padding-left:24px; white-space:nowrap; color:#394455; }
-.lfc-eur-table td.lfc-eur-td-last{ padding-right:24px; }
+.lfc-eur-table th{ text-align:right; padding:13px 10px; font-weight:600; font-size:12px; letter-spacing:0.02em; text-transform:uppercase; color:#4F5969; white-space:nowrap; }
+.lfc-eur-table th.lfc-eur-th-left{ text-align:left; padding-left:18px; }
+.lfc-eur-table th.lfc-eur-th-right{ padding-right:18px; }
+.lfc-eur-table td{ padding:12px 10px; text-align:right; font-variant-numeric:tabular-nums; color:#394455; border-bottom:1px solid #F2F4F7; }
+.lfc-eur-table td.lfc-eur-td-date{ text-align:left; padding-left:18px; white-space:nowrap; color:#394455; }
+.lfc-eur-table td.lfc-eur-td-last{ padding-right:18px; }
 .lfc-eur-table tr.is-today td{ background:#F4F9FE; font-weight:700; color:#202432; }
 .lfc-eur-table tr[data-extra]{ display:none; }
 .lfc-eur-table tr[data-extra].is-shown{ display:table-row; }
@@ -107,9 +107,11 @@
   .lfc-eur-sim-grid{ grid-template-columns:1fr; gap:22px; }
   .lfc-eur-sim-prest-val{ font-size:34px; }
   .lfc-eur-canvas-wrap{ height:280px; }
-  .lfc-eur-table th, .lfc-eur-table td{ padding:11px 12px; }
-  .lfc-eur-table th.lfc-eur-th-left, .lfc-eur-table td.lfc-eur-td-date{ padding-left:16px; }
-  .lfc-eur-table th.lfc-eur-th-right, .lfc-eur-table td.lfc-eur-td-last{ padding-right:16px; }
+  .lfc-eur-table{ font-size:13px; }
+  .lfc-eur-table th{ font-size:11px; letter-spacing:0; }
+  .lfc-eur-table th, .lfc-eur-table td{ padding:10px 6px; }
+  .lfc-eur-table th.lfc-eur-th-left, .lfc-eur-table td.lfc-eur-td-date{ padding-left:12px; }
+  .lfc-eur-table th.lfc-eur-th-right, .lfc-eur-table td.lfc-eur-td-last{ padding-right:12px; }
   .lfc-eur-mm-cards{ grid-template-columns:1fr; gap:10px; }
   .lfc-eur-mm-card{ display:flex; align-items:baseline; justify-content:space-between; padding:14px 16px; }
   .lfc-eur-mm-card .lbl{ font-size:13px; }
@@ -118,6 +120,11 @@
 @media (max-width:479px){
   .lfc-eur-card-val{ font-size:28px; }
   .lfc-eur-sim-two{ grid-template-columns:1fr; }
+  .lfc-eur-table{ font-size:12px; }
+  .lfc-eur-table th{ font-size:10px; }
+  .lfc-eur-table th, .lfc-eur-table td{ padding:9px 4px; }
+  .lfc-eur-table th.lfc-eur-th-left, .lfc-eur-table td.lfc-eur-td-date{ padding-left:10px; }
+  .lfc-eur-table th.lfc-eur-th-right, .lfc-eur-table td.lfc-eur-td-last{ padding-right:10px; }
 }`;
   var HTML = `<!-- ======================= ESILETÕSTETUD KAARDID ======================= -->
   <div class="lfc-eur-cards" id="lfc-eur-cards"></div>
