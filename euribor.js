@@ -58,8 +58,8 @@
 .lfc-eur-table td.lfc-eur-td-date{ text-align:left; padding-left:14px; white-space:nowrap; color:#394455; }
 .lfc-eur-table td.lfc-eur-td-last{ padding-right:14px; }
 .lfc-eur-table tr.is-today td{ background:#F4F9FE; font-weight:700; color:#202432; }
-.lfc-eur-table tr[data-extra]{ display:none; }
-.lfc-eur-table tr[data-extra].is-shown{ display:table-row; }
+#lfc-eur .lfc-eur-table tr[data-extra]{ display:none; }
+#lfc-eur .lfc-eur-table tr[data-extra].is-shown{ display:table-row; }
 .lfc-eur-morebtn{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:14px; font-weight:600; color:#4F5969; border:1px solid #D0D5DD; border-radius:10px; padding:9px 16px; }
 .lfc-eur-morebtn:hover{ border-color:#98A2B3; }
 /* Graafik */
