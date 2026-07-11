@@ -1,9 +1,14 @@
 /*
- * Atualiza euribor-data.json a partir do euribor-rates.eu (valores diarios).
- * Corre no GitHub Actions (Node 20+, fetch nativo, sem dependencias).
+ * Uuendab euribor-data.json faili euribor-rates.eu andmetega (päevased väärtused).
+ * Jookseb GitHub Actionsis (Node 20+, native fetch, ilma sõltuvusteta).
  *
- * IMPORTANTE: este script so atualiza a serie DIARIA. NAO toca no "historico"
- * (medias mensais), que agora vem do Banco de Portugal / BPstat e e mantido a parte.
+ * OLULINE: see skript uuendab ainult PÄEVAST aegrida. EI puuduta "historico"
+ * välja (kuukeskmised), mida hallatakse eraldi.
+ *
+ * NB: andmeid loetakse euribor-rates.eu portugalikeelselt lehelt, sest
+ * parsimine sõltub selle lehe URL-i fragmentidest ("euribor-taxa-...") ja
+ * kuupäevaformaadist (pp/kk/aaaa). Euribori väärtused on kõikjal samad,
+ * seega lehe keel ei mõjuta andmeid.
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -11,8 +16,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 const CURRENT_URL = "https://www.euribor-rates.eu/pt/taxas-euribor-actuais/";
 const DATA_PATH = new URL("../euribor-data.json", import.meta.url);
 
-const MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-const UA = { headers: { "User-Agent": "Mozilla/5.0 (LiteraciaFinanceira Euribor bot; +https://www.literaciafinanceira.pt)" } };
+const MESES = ["jaanuar","veebruar","märts","aprill","mai","juuni","juuli","august","september","oktoober","november","detsember"];
+const UA = { headers: { "User-Agent": "Mozilla/5.0 (Rahatarkus Euribor bot; +https://www.rahatarkus.ee)" } };
 
 function toNum(s) {
   return parseFloat(String(s).replace("%", "").trim().replace(/\s/g, "").replace(",", "."));
@@ -20,7 +25,7 @@ function toNum(s) {
 
 async function getHtml(url) {
   const r = await fetch(url, UA);
-  if (!r.ok) throw new Error(`HTTP ${r.status} em ${url}`);
+  if (!r.ok) throw new Error(`HTTP ${r.status} lehel ${url}`);
   return r.text();
 }
 
@@ -48,7 +53,7 @@ async function main() {
   const m3 = rowValues(cur, "euribor-taxa-3-meses");
   const m6 = rowValues(cur, "euribor-taxa-6-meses");
   const m12 = rowValues(cur, "euribor-taxa-12-meses");
-  if (!date || !m3 || !m6 || !m12) throw new Error("Nao consegui ler os valores diarios (layout mudou?)");
+  if (!date || !m3 || !m6 || !m12) throw new Error("Päevaseid väärtusi ei õnnestunud lugeda (kas lehe struktuur muutus?)");
 
   const novo = { d: date.d, m3: m3[0], m6: m6[0], m12: m12[0] };
   const jaTem = data.serie.some((r) => r.d === novo.d);
@@ -57,10 +62,10 @@ async function main() {
     data.serie.sort((a, b) => a.d.split("/").reverse().join("").localeCompare(b.d.split("/").reverse().join("")));
     data.serie = data.serie.slice(-45);
   }
-  data.dataReferencia = `${parseInt(date.dd, 10)} de ${MESES[parseInt(date.mm, 10) - 1]} de ${date.yyyy}`;
+  data.dataReferencia = `${parseInt(date.dd, 10)}. ${MESES[parseInt(date.mm, 10) - 1]} ${date.yyyy}`;
 
   writeFileSync(DATA_PATH, JSON.stringify(data, null, 2) + "\n", "utf8");
-  console.log(`[euribor] OK -> ${data.dataReferencia} | 3m ${novo.m3} 6m ${novo.m6} 12m ${novo.m12}${jaTem ? " (ja existia)" : ""}`);
+  console.log(`[euribor] OK -> ${data.dataReferencia} | 3k ${novo.m3} 6k ${novo.m6} 12k ${novo.m12}${jaTem ? " (oli juba olemas)" : ""}`);
 }
 
-main().catch((e) => { console.error("[euribor] FALHOU:", e.message); process.exit(1); });
+main().catch((e) => { console.error("[euribor] EBAÕNNESTUS:", e.message); process.exit(1); });
