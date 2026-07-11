@@ -1,22 +1,19 @@
 /* =====================================================================
-   LiteraciaFinanceira.pt - Ferramenta "Euribor hoje" (bundle externo)
-   Injeta CSS + HTML no #lfc-eur e vai buscar os dados a euribor-data.json.
+   Rahatarkus - tööriist "Euribor täna" (väline bundle)
+   Süstib CSS-i + HTML-i #lfc-eur sisse ja laeb andmed failist euribor-data.json.
+   NB: asenda DATA_URL oma GitHubi forgi teega.
    ===================================================================== */
 (function(){
   "use strict";
-
-  var DATA_URL = "https://cdn.jsdelivr.net/gh/franklinsilvapt-arch/euribor-hoje@main/euribor-data.json";
-
-  var CSS = `/* ===================== LFC-EUR · estilos (tokens LF) ===================== */
+  var DATA_URL = "https://cdn.jsdelivr.net/gh/<SINU-GITHUB-KASUTAJA>/<SINU-REPO>@main/euribor-data.json";
+  var CSS = `/* ===================== LFC-EUR · stiilid (LF tokenid) ===================== */
 #lfc-eur{ font-family:inherit; color:#202432; -webkit-font-smoothing:antialiased; }
 #lfc-eur *{ box-sizing:border-box; }
 #lfc-eur a{ text-decoration:none; }
-
 .lfc-eur-h1{ font-family:inherit; font-weight:700; font-size:48px; line-height:1.08; letter-spacing:-0.02em; color:#202432; margin:16px 0 0; }
 .lfc-eur-sub{ font-size:18px; line-height:1.6; color:#3A4454; margin:16px 0 0; max-width:680px; letter-spacing:-0.1px; }
 .lfc-eur-refline{ margin:16px 0 0; font-size:14px; line-height:1.55; color:#4F5969; font-weight:500; max-width:820px; }
 .lfc-eur-refline strong{ color:#202432; }
-
 /* Cards */
 .lfc-eur-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:28px; }
 .lfc-eur-card{ background:#fff; border:1px solid #E9ECF1; border-radius:12px; padding:22px 18px; box-shadow:0 1px 3px rgba(18,23,33,0.06); min-width:0; }
@@ -31,23 +28,19 @@
 .lfc-eur-card-line .k{ color:#4F5969; white-space:nowrap; }
 .lfc-eur-card-line .v{ color:#394455; font-weight:600; font-variant-numeric:tabular-nums; display:inline-flex; align-items:baseline; gap:6px; white-space:nowrap; }
 .lfc-eur-card-mdelta{ font-size:12px; font-weight:600; }
-
 .lfc-eur-note{ font-size:13px; line-height:1.55; color:#98A2B3; margin:16px 0 0; max-width:820px; }
-
-/* Blocos genericos */
+/* Üldised plokid */
 .lfc-eur-block{ margin-top:48px; }
 .lfc-eur-block-head{ display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:18px; }
 .lfc-eur-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
 .lfc-eur-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.15; letter-spacing:-0.02em; color:#202432; margin:6px 0 0; }
-
-/* Media mensal */
+/* Kuukeskmine */
 .lfc-eur-mm-cards{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
 .lfc-eur-mm-card{ background:#FCFCFD; border:1px solid #E9ECF1; border-radius:12px; padding:18px 18px; min-width:0; }
 .lfc-eur-mm-card .lbl{ font-weight:700; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-mm-card .val{ font-size:26px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; margin-top:6px; line-height:1; }
 .lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#C72307; background:#FFF4ED; border:1px solid #FFE7D4; border-radius:999px; padding:5px 12px; line-height:1.4; }
-
-/* Tabela */
+/* Tabel */
 .lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow:hidden; }
 .lfc-eur-table{ width:100%; border-collapse:collapse; font-size:14px; }
 .lfc-eur-table thead tr{ background:#FCFCFD; border-bottom:1px solid #EAECF0; }
@@ -62,8 +55,7 @@
 .lfc-eur-table tr[data-extra].is-shown{ display:table-row; }
 .lfc-eur-morebtn{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-size:14px; font-weight:600; color:#4F5969; border:1px solid #D0D5DD; border-radius:10px; padding:9px 16px; }
 .lfc-eur-morebtn:hover{ border-color:#98A2B3; }
-
-/* Grafico */
+/* Graafik */
 .lfc-eur-ranges{ display:flex; gap:4px; background:#F2F4F7; border:1px solid #EAECF0; border-radius:12px; padding:4px; }
 .lfc-eur-ranges button{ border:0; background:transparent; font-family:inherit; font-size:13px; font-weight:600; color:#4F5969; padding:7px 14px; border-radius:9px; cursor:pointer; letter-spacing:-0.1px; }
 .lfc-eur-ranges button.is-active{ background:#fff; color:#202432; box-shadow:0 1px 2px rgba(18,23,33,0.10); }
@@ -73,8 +65,7 @@
 .lfc-eur-legend .lg .dot{ width:11px; height:11px; border-radius:50%; }
 .lfc-eur-legend .lg.is-off{ color:#98A2B3; text-decoration:line-through; }
 .lfc-eur-canvas-wrap{ position:relative; height:340px; }
-
-/* Simulador */
+/* Simulaator */
 .lfc-eur-sim{ margin-top:52px; }
 .lfc-eur-sim-eyebrow{ font-weight:700; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:#FF5A1F; }
 .lfc-eur-sim-h2{ font-family:inherit; font-weight:700; font-size:30px; line-height:1.2; letter-spacing:-0.02em; color:#202432; margin:6px 0 6px; }
@@ -101,9 +92,7 @@
 .lfc-eur-sim-shock strong{ color:#fff; }
 .lfc-eur-sim-foot{ font-size:12px; line-height:1.55; color:#98A2B3; margin:22px 0 0; }
 .lfc-eur-sim-link{ color:var(--colors--accent-blue,#2E90FA); text-decoration:underline; }
-
-
-/* ---------- Responsivo ---------- */
+/* ---------- Responsiivne ---------- */
 @media (max-width:767px){
   .lfc-eur-h1{ font-size:36px; }
   .lfc-eur-sub{ font-size:16px; }
@@ -124,146 +113,139 @@
   .lfc-eur-card-val{ font-size:28px; }
   .lfc-eur-sim-two{ grid-template-columns:1fr; }
 }`;
-
-  var HTML = `<!-- ======================= CARDS DE DESTAQUE ======================= -->
+  var HTML = `<!-- ======================= ESILETÕSTETUD KAARDID ======================= -->
   <div class="lfc-eur-cards" id="lfc-eur-cards"></div>
-  <p class="lfc-eur-refline">Atualizado automaticamente todos os dias úteis. Último valor disponível: <strong id="lfc-eur-refdate">-</strong> · a fonte gratuita (EMMI) tem 24h de desfasamento, por isso corresponde ao dia útil anterior.</p>
-  <p class="lfc-eur-note">A variação face ao dia útil anterior está em pontos percentuais (p.p.). Uma subida da Euribor encarece a prestação; uma descida alivia-a. As taxas a 1 semana e 1 mês existem, mas não são usadas no crédito à habitação em Portugal, por isso ficam de fora.</p>
-
-  <!-- ======================= GRAFICO ======================= -->
+  <p class="lfc-eur-refline">Uuendatakse automaatselt igal tööpäeval. Viimane saadaolev väärtus: <strong id="lfc-eur-refdate">-</strong> · tasuta allikal (EMMI) on 24h viivitus, seega vastab see eelmisele tööpäevale.</p>
+  <p class="lfc-eur-note">Muutus eelmise tööpäevaga võrreldes on protsendipunktides (pp). Euribori tõus teeb laenumakse kallimaks; langus toob leevendust. 1 nädala ja 1 kuu määrad on olemas, kuid Eesti kodulaenudes neid ei kasutata, seetõttu jäävad need välja.</p>
+  <!-- ======================= GRAAFIK ======================= -->
   <div class="lfc-eur-block">
     <div class="lfc-eur-block-head">
       <div>
-        <span class="lfc-eur-eyebrow">Gráfico</span>
-        <h2 class="lfc-eur-h2">Evolução das três Euribores</h2>
+        <span class="lfc-eur-eyebrow">Graafik</span>
+        <h2 class="lfc-eur-h2">Kolme Euribori liikumine</h2>
       </div>
       <div class="lfc-eur-ranges" id="lfc-eur-ranges">
-        <button data-range="30d">Diário</button>
-        <button data-range="1a" class="is-active">1 ano</button>
+        <button data-range="30d">Päevane</button>
+        <button data-range="1a" class="is-active">1 aasta</button>
       </div>
     </div>
     <div class="lfc-eur-chartcard">
       <div class="lfc-eur-legend" id="lfc-eur-legend"></div>
       <div class="lfc-eur-canvas-wrap"><canvas id="lfc-eur-canvas"></canvas></div>
     </div>
-    <p class="lfc-eur-note">Passa o rato sobre o gráfico para ver os valores em cada data. O "Diário" mostra os valores oficiais recentes (EMMI, com 24h de desfasamento); o "1 ano" mostra as médias mensais do Banco de Portugal.</p>
+    <p class="lfc-eur-note">Liigu hiirega üle graafiku, et näha iga kuupäeva väärtusi. "Päevane" näitab viimaseid ametlikke väärtusi (EMMI, 24h viivitusega); "1 aasta" näitab kuukeskmisi.</p>
   </div>
-
-  <!-- ======================= MEDIA MENSAL ======================= -->
+  <!-- ======================= KUUKESKMINE ======================= -->
   <div class="lfc-eur-block">
     <div class="lfc-eur-block-head">
       <div>
-        <span class="lfc-eur-eyebrow">O que conta na revisão</span>
-        <h2 class="lfc-eur-h2">Média mensal da Euribor</h2>
+        <span class="lfc-eur-eyebrow">Mis loeb intressi muutumisel</span>
+        <h2 class="lfc-eur-h2">Euribori kuukeskmine</h2>
       </div>
     </div>
-    <p class="lfc-eur-note" style="margin:0 0 20px">É a média mensal - e não o valor de um único dia - que o teu banco usa para rever a prestação. Regra geral aplica-se a média do mês anterior ao da revisão. Médias mensais fechadas: fonte Banco de Portugal.</p>
+    <p class="lfc-eur-note" style="margin:0 0 20px">Eestis fikseerib pank uue intressimäära tavaliselt intressi muutumise päeval kehtiva Euribori alusel – kuukeskmine aitab trendi jälgida ja tulevast makset hinnata. Suletud kuude keskmised: EMMI ametlikud andmed.</p>
     <div id="lfc-eur-mm-current"></div>
     <div class="lfc-eur-table-wrap" style="margin-top:20px">
       <table class="lfc-eur-table">
         <thead>
           <tr>
-            <th class="lfc-eur-th-left">Mês</th>
-            <th>3 meses</th>
-            <th>6 meses</th>
-            <th class="lfc-eur-th-right">12 meses</th>
+            <th class="lfc-eur-th-left">Kuu</th>
+            <th>3 kuud</th>
+            <th>6 kuud</th>
+            <th class="lfc-eur-th-right">12 kuud</th>
           </tr>
         </thead>
         <tbody id="lfc-eur-mm-tbody"></tbody>
       </table>
     </div>
   </div>
-
-  <!-- ======================= TABELA ======================= -->
+  <!-- ======================= TABEL ======================= -->
   <div class="lfc-eur-block">
     <div class="lfc-eur-block-head">
       <div>
-        <span class="lfc-eur-eyebrow" id="lfc-eur-table-eyebrow">Últimos dias úteis</span>
-        <h2 class="lfc-eur-h2">Evolução diária</h2>
+        <span class="lfc-eur-eyebrow" id="lfc-eur-table-eyebrow">Viimased tööpäevad</span>
+        <h2 class="lfc-eur-h2">Igapäevane muutus</h2>
       </div>
     </div>
     <div class="lfc-eur-table-wrap">
       <table class="lfc-eur-table">
         <thead>
           <tr>
-            <th class="lfc-eur-th-left">Data</th>
-            <th>3 meses</th>
-            <th>6 meses</th>
-            <th class="lfc-eur-th-right">12 meses</th>
+            <th class="lfc-eur-th-left">Kuupäev</th>
+            <th>3 kuud</th>
+            <th>6 kuud</th>
+            <th class="lfc-eur-th-right">12 kuud</th>
           </tr>
         </thead>
         <tbody id="lfc-eur-tbody"></tbody>
       </table>
     </div>
-    <a href="#" id="lfc-eur-more" class="lfc-eur-morebtn">Mostrar mais dias</a>
+    <a href="#" id="lfc-eur-more" class="lfc-eur-morebtn">Näita rohkem päevi</a>
   </div>
-
-  <!-- ======================= SIMULADOR ======================= -->
+  <!-- ======================= SIMULAATOR ======================= -->
   <div class="lfc-eur-sim">
-    <span class="lfc-eur-sim-eyebrow">Simulador</span>
-    <h2 class="lfc-eur-sim-h2">Quanto pesa a Euribor na tua prestação?</h2>
-    <p class="lfc-eur-sim-sub">Mete o capital que ainda deves, o prazo restante e o teu spread. Usamos a Euribor de hoje para o prazo que escolheres. É uma estimativa: o teu banco arredonda e pode ter outras condições.</p>
+    <span class="lfc-eur-sim-eyebrow">Kalkulaator</span>
+    <h2 class="lfc-eur-sim-h2">Kui palju mõjutab Euribor sinu kuumakset?</h2>
+    <p class="lfc-eur-sim-sub">Sisesta laenujääk, järelejäänud periood ja sinu marginaal. Kasutame valitud perioodi tänast Euribori. See on hinnang: pank ümardab ja tingimused võivad erineda.</p>
     <div class="lfc-eur-sim-grid">
       <div class="lfc-eur-sim-inputs">
         <div class="lfc-eur-sim-field">
-          <label for="lfc-eur-cap">Capital em dívida (€)</label>
-          <input id="lfc-eur-cap" type="text" inputmode="numeric" value="150.000">
+          <label for="lfc-eur-cap">Laenujääk (€)</label>
+          <input id="lfc-eur-cap" type="text" inputmode="numeric" value="150 000">
         </div>
         <div class="lfc-eur-sim-two">
           <div class="lfc-eur-sim-field">
-            <label for="lfc-eur-anos">Prazo restante (anos)</label>
+            <label for="lfc-eur-anos">Järelejäänud periood (aastat)</label>
             <input id="lfc-eur-anos" type="text" inputmode="numeric" value="30">
           </div>
           <div class="lfc-eur-sim-field">
-            <label for="lfc-eur-spread">Spread (%)</label>
-            <input id="lfc-eur-spread" type="text" inputmode="decimal" value="1,00">
+            <label for="lfc-eur-spread">Marginaal (%)</label>
+            <input id="lfc-eur-spread" type="text" inputmode="decimal" value="1,80">
           </div>
         </div>
         <div class="lfc-eur-sim-field">
-          <label>Indexante (prazo da Euribor)</label>
+          <label>Baasintress (Euribori periood)</label>
           <div class="lfc-eur-sim-pills" id="lfc-eur-pills">
-            <button data-prazo="m3">3 meses</button>
-            <button data-prazo="m6">6 meses</button>
-            <button data-prazo="m12" class="is-active">12 meses</button>
+            <button data-prazo="m3">3 kuud</button>
+            <button data-prazo="m6" class="is-active">6 kuud</button>
+            <button data-prazo="m12">12 kuud</button>
           </div>
         </div>
       </div>
       <div class="lfc-eur-sim-result">
-        <div class="lfc-eur-sim-row"><span>Euribor <span id="lfc-eur-sim-prazolabel">12 meses</span></span><span id="lfc-eur-sim-eurib">-</span></div>
-        <div class="lfc-eur-sim-row"><span>+ Spread</span><span id="lfc-eur-sim-spread">-</span></div>
-        <div class="lfc-eur-sim-row lfc-eur-sim-row--tan"><span>= TAN</span><span id="lfc-eur-sim-tan">-</span></div>
+        <div class="lfc-eur-sim-row"><span>Euribor <span id="lfc-eur-sim-prazolabel">6 kuud</span></span><span id="lfc-eur-sim-eurib">-</span></div>
+        <div class="lfc-eur-sim-row"><span>+ Marginaal</span><span id="lfc-eur-sim-spread">-</span></div>
+        <div class="lfc-eur-sim-row lfc-eur-sim-row--tan"><span>= Intress kokku</span><span id="lfc-eur-sim-tan">-</span></div>
         <div class="lfc-eur-sim-prest">
-          <span class="lfc-eur-sim-prest-label">Prestação mensal estimada</span>
+          <span class="lfc-eur-sim-prest-label">Hinnanguline kuumakse</span>
           <span class="lfc-eur-sim-prest-val" id="lfc-eur-sim-prest">-</span>
         </div>
-        <div class="lfc-eur-sim-shock">Se a Euribor subir <strong>+0,5 p.p.</strong>, a tua prestação sobe cerca de <strong id="lfc-eur-sim-shock">-</strong> por mês.</div>
+        <div class="lfc-eur-sim-shock">Kui Euribor tõuseb <strong>+0,5 pp</strong>, kasvab sinu kuumakse umbes <strong id="lfc-eur-sim-shock">-</strong> võrra kuus.</div>
       </div>
     </div>
-    <p class="lfc-eur-sim-foot">Simulação indicativa (método de prestação constante / sistema francês). Não inclui seguros, comissões nem arredondamentos do banco e não constitui aconselhamento. Confirma o impacto real com as calculadoras de crédito: <a href="/calculadora-taxa-de-esforco" class="lfc-eur-sim-link">Taxa de esforço</a> e as restantes ferramentas de crédito habitação da LF.</p>
+    <p class="lfc-eur-sim-foot">Soovituslik arvutus (annuiteetgraafik / võrdsete maksete meetod). Ei sisalda kindlustusi, lepingutasusid ega panga ümardamisi ega ole finantsnõustamine. Täpsema pildi saad Rahatarkuse teiste kodulaenu kalkulaatoritega: <a href="/kodulaenu-kalkulaator" class="lfc-eur-sim-link">kodulaenu kalkulaator</a>.</p>
   </div>`;
-
   function run(DATA){
     var LFC_EUR_DIARIO = { dataReferencia: DATA.dataReferencia, serie: DATA.serie };
     var LFC_EUR_HISTORICO = DATA.historico || [];
     var PRAZOS = [
-    { key:'m3',  label:'3 meses',  color:'#2E90FA' },
-    { key:'m6',  label:'6 meses',  color:'#F79009' },
-    { key:'m12', label:'12 meses', color:'#9B8AFB' }
+    { key:'m3',  label:'3 kuud',  color:'#2E90FA' },
+    { key:'m6',  label:'6 kuud',  color:'#F79009' },
+    { key:'m12', label:'12 kuud', color:'#9B8AFB' }
   ];
-  var MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-
-  /* ---------------- Helpers pt-PT ---------------- */
+  var MESES = ['jaanuar','veebruar','märts','aprill','mai','juuni','juuli','august','september','oktoober','november','detsember'];
+  /* ---------------- Abifunktsioonid (et) ---------------- */
   function fmtPct(v){ if(v==null||!isFinite(v)) return '-'; return v.toFixed(3).replace('.',',')+'%'; }
   function fmtPP(delta){
     if(delta==null||!isFinite(delta)) return '';
     var s = (delta>0?'+':delta<0?'-':'') + Math.abs(delta).toFixed(3).replace('.',',');
-    return s+' p.p.';
+    return s+' pp';
   }
   function fmtEUR(v){
     if(!isFinite(v)) return '-';
     var parts = Math.abs(v).toFixed(2).split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-    return (v<0?'- ':'')+parts[0]+','+parts[1]+'\u20AC';
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    return (v<0?'- ':'')+parts[0]+','+parts[1]+' €';
   }
   function parseNum(str){
     if(str==null) return 0;
@@ -271,12 +253,10 @@
   }
   function parseDMY(s){ var p=s.split('/'); return new Date(+p[2], +p[1]-1, +p[0]); }
   function shortDate(s){ var p=s.split('/'); return p[0]+'/'+p[1]; }
-
   var serie = LFC_EUR_DIARIO.serie.slice();
   var last = serie[serie.length-1];
   var prev = serie[serie.length-2] || last;
-
-  /* "ha um mes": linha mais proxima de (data mais recente - 30 dias) */
+  /* "kuu tagasi": lähim rida kuupäevale (uusim kuupäev - 30 päeva) */
   function rowAroundMonthAgo(){
     var target = parseDMY(last.d).getTime() - 30*864e5;
     var pool = serie.slice();
@@ -292,12 +272,10 @@
     return best;
   }
   var monthAgo = rowAroundMonthAgo();
-
   /* ---------------- Hero ---------------- */
   var refEl = document.getElementById('lfc-eur-refdate');
   if(refEl) refEl.textContent = LFC_EUR_DIARIO.dataReferencia;
-
-  /* ---------------- Cards ---------------- */
+  /* ---------------- Kaardid ---------------- */
   function deltaChip(delta){
     var up = delta>0.0004, down = delta<-0.0004;
     var color = up?'#F04438':down?'#17B26A':'#98A2B3';
@@ -321,18 +299,17 @@
         + '<div class="lfc-eur-card-valrow"><span class="lfc-eur-card-val">'+fmtPct(today)+'</span>'
         + deltaChip(today-yst)+'</div>'
         + '<div class="lfc-eur-card-foot">'
-        + '<div class="lfc-eur-card-line"><span class="k">Dia útil anterior</span><span class="v">'+fmtPct(yst)+'</span></div>'
+        + '<div class="lfc-eur-card-line"><span class="k">Eelmine tööpäev</span><span class="v">'+fmtPct(yst)+'</span></div>'
         + '</div></div>';
     });
     wrap.innerHTML=html;
   })();
-
-  /* ---------------- Tabela (mais recente no topo) ---------------- */
+  /* ---------------- Tabel (uusim üleval) ---------------- */
   var INITIAL_ROWS = 10;
   (function renderTable(){
     var tb=document.getElementById('lfc-eur-tbody'); if(!tb) return;
     var rows = serie.slice().reverse().slice(0,30);
-    var eb=document.getElementById('lfc-eur-table-eyebrow'); if(eb) eb.textContent='Últimos '+rows.length+' dias úteis';
+    var eb=document.getElementById('lfc-eur-table-eyebrow'); if(eb) eb.textContent='Viimased '+rows.length+' tööpäeva';
     var html='';
     rows.forEach(function(r,i){
       var extra = i>=INITIAL_ROWS ? ' data-extra="1"' : '';
@@ -351,13 +328,12 @@
       moreBtn.addEventListener('click',function(e){
         e.preventDefault();
         var shown=tb.querySelector('tr[data-extra].is-shown');
-        if(shown){ extras.forEach(function(t){t.classList.remove('is-shown');}); moreBtn.textContent='Mostrar mais dias'; }
-        else { extras.forEach(function(t){t.classList.add('is-shown');}); moreBtn.textContent='Mostrar menos'; }
+        if(shown){ extras.forEach(function(t){t.classList.remove('is-shown');}); moreBtn.textContent='Näita rohkem päevi'; }
+        else { extras.forEach(function(t){t.classList.add('is-shown');}); moreBtn.textContent='Näita vähem'; }
       });
     }
   })();
-
-  /* ---------------- Grafico (Chart.js) ---------------- */
+  /* ---------------- Graafik (Chart.js) ---------------- */
   function loadChartJS(cb){
     if(window.Chart){ cb(); return; }
     var s=document.createElement('script');
@@ -365,7 +341,6 @@
     s.onload=cb; document.head.appendChild(s);
   }
   var chart=null, hidden={m3:false,m6:false,m12:false}, currentRange='1a';
-
   function dataForRange(range){
     if(range==='30d'){
       var rows=serie.slice(-30);
@@ -423,9 +398,8 @@
       });
     }
   })();
-
-  /* ---------------- Simulador ---------------- */
-  var simPrazo='m12';
+  /* ---------------- Simulaator ---------------- */
+  var simPrazo='m6';
   function simEuribor(){ return last[simPrazo]; }
   function prazoLabel(){ var p=PRAZOS.filter(function(x){return x.key===simPrazo;})[0]; return p?p.label:''; }
   function prestacao(capital, anos, tanPct){
@@ -462,8 +436,7 @@
     });
   }
   runSim();
-
-  /* ---------------- Media mensal ---------------- */
+  /* ---------------- Kuukeskmine ---------------- */
   (function renderMediaMensal(){
     var ymLast = last.d.split('/')[2]+'-'+last.d.split('/')[1];
     var monthDays = serie.filter(function(r){ var p=r.d.split('/'); return (p[2]+'-'+p[1])===ymLast; });
@@ -471,7 +444,7 @@
     var mesNome = MESES[parseInt(last.d.split('/')[1],10)-1];
     var cur = document.getElementById('lfc-eur-mm-current');
     if(cur){
-      var mmCap = 'Média de '+mesNome+' até à data ('+monthDays.length+' dia'+(monthDays.length!==1?'s':'')+', ainda a fechar)';
+      var mmCap = mesNome.charAt(0).toUpperCase()+mesNome.slice(1)+' keskmine seni ('+monthDays.length+' päev'+(monthDays.length!==1?'a':'')+', kuu veel kestab)';
       var mmCards = PRAZOS.map(function(p){
         return '<div class="lfc-eur-mm-card"><span class="lbl">'+p.label+'</span><div class="val">'+fmtPct(avg(p.key))+'</div></div>';
       }).join('');
@@ -481,13 +454,12 @@
     if(tb){
       var rows = LFC_EUR_HISTORICO.slice().reverse().slice(0,12);
       tb.innerHTML = rows.map(function(hh){
-        var p=hh.d.split('-'); var nome=MESES[parseInt(p[1],10)-1]+' de '+p[0];
+        var p=hh.d.split('-'); var nome=MESES[parseInt(p[1],10)-1]+' '+p[0];
         return '<tr><td class="lfc-eur-td-date">'+nome+'</td><td>'+fmtPct(hh.m3)+'</td><td>'+fmtPct(hh.m6)+'</td><td class="lfc-eur-td-last">'+fmtPct(hh.m12)+'</td></tr>';
       }).join('');
     }
   })();
   }
-
   function boot(DATA){
     if(!document.getElementById("lfc-eur-style")){
       var st=document.createElement("style"); st.id="lfc-eur-style"; st.textContent=CSS;
@@ -497,17 +469,15 @@
     root.innerHTML=HTML;
     run(DATA);
   }
-
   function start(){
     fetch(DATA_URL, {cache:"no-store"})
       .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
       .then(boot)
       .catch(function(err){
-        console.error("[euribor] erro a carregar dados", err);
+        console.error("[euribor] viga andmete laadimisel", err);
         var root=document.getElementById("lfc-eur");
-        if(root){ root.innerHTML='<p style="font:14px/1.5 inherit;color:#98A2B3;margin:0;">Nao foi possivel carregar os dados da Euribor. Tenta novamente daqui a pouco.</p>'; }
+        if(root){ root.innerHTML='<p style="font:14px/1.5 inherit;color:#98A2B3;margin:0;">Euribori andmeid ei õnnestunud laadida. Proovi mõne hetke pärast uuesti.</p>'; }
       });
   }
-
   if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded", start); } else { start(); }
 })();
