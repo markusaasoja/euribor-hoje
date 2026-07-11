@@ -1,6 +1,6 @@
 {
-  "dataReferencia": "9 de julho de 2026",
-  "fonte": "Diario: euribor-rates.eu (EMMI, 24h). Medias mensais: Banco de Portugal (BPstat).",
+  "dataReferencia": "9. juuli 2026",
+  "fonte": "Päevane: euribor-rates.eu (EMMI, 24h viivitus). Kuukeskmised: EMMI ametlikud andmed.",
   "serie": [
     {
       "d": "24/06/2026",
