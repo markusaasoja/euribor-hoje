@@ -6,8 +6,14 @@
   "use strict";
   var DATA_URL = "https://cdn.jsdelivr.net/gh/markusaasoja/euribor-hoje@main/euribor-data.json";
   var CSS = `/* ===================== LFC-EUR · stiilid (LF tokenid) ===================== */
-#lfc-eur{ font-family:inherit; color:#202432; -webkit-font-smoothing:antialiased; }
+#lfc-eur{ font-family:inherit; color:#202432; -webkit-font-smoothing:antialiased; max-width:100%; min-width:0; }
 #lfc-eur *{ box-sizing:border-box; }
+/* Kaitse Webflow' malli globaalsete tabeli-/embed-stiilide vastu */
+#lfc-eur table{ display:table; width:100%; margin:0; }
+#lfc-eur thead{ display:table-header-group; }
+#lfc-eur tbody{ display:table-row-group; }
+#lfc-eur tr{ display:table-row; }
+#lfc-eur th, #lfc-eur td{ display:table-cell; max-width:none; }
 #lfc-eur a{ text-decoration:none; }
 .lfc-eur-h1{ font-family:inherit; font-weight:700; font-size:48px; line-height:1.08; letter-spacing:-0.02em; color:#202432; margin:16px 0 0; }
 .lfc-eur-sub{ font-size:18px; line-height:1.6; color:#3A4454; margin:16px 0 0; max-width:680px; letter-spacing:-0.1px; }
@@ -38,10 +44,11 @@
 .lfc-eur-mm-card{ background:#FCFCFD; border:1px solid #E9ECF1; border-radius:12px; padding:18px 18px; min-width:0; }
 .lfc-eur-mm-card .lbl{ font-weight:700; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-mm-card .val{ font-size:26px; font-weight:700; letter-spacing:-0.02em; color:#202432; font-variant-numeric:tabular-nums; margin-top:6px; line-height:1; }
-.lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#005AA3; background:#EBF4FC; border:1px solid #C9E2F6; border-radius:999px; padding:5px 12px; line-height:1.4; }
+.lfc-eur-mm-cap{ display:inline-block; margin:14px 0 0; font-size:12px; font-weight:600; color:#005AA3; background:#EBF4FC; border:1px solid #C9E2F6; border-radius:999px; padding:5px 12px; line-height:1.4; white-space:normal; max-width:100%; }
 /* Tabel */
-.lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow:hidden; }
-.lfc-eur-table{ width:100%; border-collapse:collapse; font-size:14px; }
+.lfc-eur-table-wrap{ border:1px solid #E9ECF1; border-radius:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%; }
+.lfc-eur-table{ width:100%; min-width:440px; border-collapse:collapse; font-size:14px; table-layout:auto; }
+#lfc-eur .lfc-eur-table th, #lfc-eur .lfc-eur-table td{ overflow:visible; text-overflow:clip; }
 .lfc-eur-table thead tr{ background:#FCFCFD; border-bottom:1px solid #EAECF0; }
 .lfc-eur-table th{ text-align:right; padding:13px 16px; font-weight:600; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; color:#4F5969; }
 .lfc-eur-table th.lfc-eur-th-left{ text-align:left; padding-left:24px; }
