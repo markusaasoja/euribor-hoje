@@ -38,4 +38,4 @@ jobs:
           fi
       - name: Purgar jsDelivr
         run: |
-          curl -s "https://purge.jsdelivr.net/gh/franklinsilvapt-arch/euribor-hoje@main/euribor-data.json" || true
+          curl -s "https://purge.jsdelivr.net/gh/markusaasoja/euribor-hoje@main/euribor-data.json" || true
