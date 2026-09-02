@@ -1,5 +1,5 @@
 {
-  "dataReferencia": "31. august 2026",
+  "dataReferencia": "1. september 2026",
   "fonte": "Päevane: euribor-rates.eu (EMMI, 24h viivitus). Kuukeskmised: EMMI ametlikud andmed.",
   "serie": [
     {
@@ -217,6 +217,12 @@
       "m3": 2.593,
       "m6": 2.77,
       "m12": 3.003
+    },
+    {
+      "d": "01/09/2026",
+      "m3": 2.608,
+      "m6": 2.779,
+      "m12": 3.029
     }
   ],
   "historico": [
