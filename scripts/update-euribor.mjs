@@ -2,8 +2,9 @@
  * Uuendab euribor-data.json faili euribor-rates.eu andmetega (päevased väärtused).
  * Jookseb GitHub Actionsis (Node 20+, native fetch, ilma sõltuvusteta).
  *
- * OLULINE: see skript uuendab ainult PÄEVAST aegrida. EI puuduta "historico"
- * välja (kuukeskmised), mida hallatakse eraldi.
+ * OLULINE: see skript uuendab PÄEVAST aegrida ("serie") ja täiendab ka
+ * "historico" (kuukeskmised) ise, kui eelmine kalendrikuu on veel puudu —
+ * vt monthAvg() ja selle kasutust main()'is. Käsitsi lisamist enam vaja pole.
  *
  * NB: andmeid loetakse euribor-rates.eu portugalikeelselt lehelt, sest
  * parsimine sõltub selle lehe URL-i fragmentidest ("euribor-taxa-...") ja
