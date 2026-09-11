@@ -45,6 +45,22 @@ function firstDate(html) {
   return { d: `${m[1]}/${m[2]}/${m[3]}`, dd: m[1], mm: m[2], yyyy: m[3] };
 }
 
+function round3(n) {
+  return Math.round(n * 1000) / 1000;
+}
+
+// Arvutab "serie" päevaste väärtuste põhjal ühe kuu keskmise (yyyy-mm).
+// Tagastab null, kui selle kuu kohta pole ühtegi päeva.
+function monthAvg(serie, ym) {
+  const rows = serie.filter((r) => {
+    const [, mm, yyyy] = r.d.split("/");
+    return `${yyyy}-${mm}` === ym;
+  });
+  if (!rows.length) return null;
+  const avg = (key) => rows.reduce((s, r) => s + r[key], 0) / rows.length;
+  return { d: ym, m3: round3(avg("m3")), m6: round3(avg("m6")), m12: round3(avg("m12")) };
+}
+
 async function main() {
   const data = JSON.parse(readFileSync(DATA_PATH, "utf8"));
 
@@ -60,8 +76,25 @@ async function main() {
   if (!jaTem) {
     data.serie.push(novo);
     data.serie.sort((a, b) => a.d.split("/").reverse().join("").localeCompare(b.d.split("/").reverse().join("")));
-    data.serie = data.serie.slice(-45);
   }
+
+  // Kuukeskmiste automaatne täiendamine: kui eelmine kalendrikuu pole veel
+  // "historico"s, arvutame selle "serie" päevaste väärtuste keskmisena ja
+  // lisame ise, et kuu ei jääks käsitsi lisamata (nagu juhtus juuli/augustiga).
+  // See tehakse ENNE "serie" 45 päevani kärpimist, et eelmise kuu kõik
+  // tööpäevad oleks veel arvutuses olemas.
+  const eelmineKuu = new Date(Number(date.yyyy), Number(date.mm) - 1 - 1, 1);
+  const eelmineYm = `${eelmineKuu.getFullYear()}-${String(eelmineKuu.getMonth() + 1).padStart(2, "0")}`;
+  if (!data.historico.some((r) => r.d === eelmineYm)) {
+    const keskmine = monthAvg(data.serie, eelmineYm);
+    if (keskmine) {
+      data.historico.push(keskmine);
+      data.historico.sort((a, b) => a.d.localeCompare(b.d));
+      console.log(`[euribor] historico täiendatud: ${eelmineYm} (m3 ${keskmine.m3}, m6 ${keskmine.m6}, m12 ${keskmine.m12})`);
+    }
+  }
+
+  data.serie = data.serie.slice(-45);
   data.dataReferencia = `${parseInt(date.dd, 10)}. ${MESES[parseInt(date.mm, 10) - 1]} ${date.yyyy}`;
 
   writeFileSync(DATA_PATH, JSON.stringify(data, null, 2) + "\n", "utf8");
